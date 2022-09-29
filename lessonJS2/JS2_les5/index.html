@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magazine</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+<header>
+<div class="logo">Shop</div>
+    <div class="cart">
+        <form action="#" class="form" @submit.prevent="filter">
+            <input type="text" class="form_field" v-model="userSearch">
+            <button type="submit" class="btn_search">
+                <i></i>
+            </button>
+        </form>
+        <button class="cart_btn" type="button" @click="openCart = !openCart">Корзина</button>
+        <div class="cart_block" v-show="openCart">
+            <p v-if="!cartItems.length">Пусто</p>
+            <div class="cart_item" v-for="item of cartItems" :key="item.id_product">
+                <div class="product_cart">
+                    <div class="product_left">
+                        <div class="product_title">{{ item.product_name }}</div>
+                        <div class="product_quantity">Quantity: {{ item.quantity }}</div>
+                        <div class="product_singleprice">$ {{ item.price }} each</div>
+                    </div>
+                </div>
+                    <div class="product_right">
+                        <div class="product_price">{{item.quantity*item.price}}</div>
+                        <button class="deleted" @click="remove(item)">&times;</button>
+                    </div>
+            </div>
+        </div>
+    </div>
+    </header>
+    <main>
+        <div class="products">
+            <div class="product_item" v-for="product of filtered" :key="product.id_product">
+                <img :src="imgProduct" alt="Some img">
+                <div class="cart_box">
+                    <h3>{{product.product_name}}</h3>
+                    <p>{{product.price}}</p>
+                    <button class="buy_btn" @click="addProduct(product)">Купить</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="script.js"></script>  
+</body>
+</html>
